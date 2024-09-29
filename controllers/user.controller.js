@@ -68,3 +68,47 @@ export const userLogin = async (req, res) => {
         res.status(500).json({ msg: 'Server error' });
     }
 };
+
+export const getUserProfile = async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id)
+            .populate('posts', 'content likes comments')
+            .select('username bio profilePicture');
+        if (!user)
+            return res
+                .status(404)
+                .json({ msg: 'getUserProfile: no user found' });
+
+        return res.status(200).json(user);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).json({ msg: 'Server error' });
+    }
+};
+
+/*
+TODO: Profile Picture Upload
+For uploading a profile picture, you can integrate file upload functionality (e.g., using multer for handling file uploads).
+*/
+
+export const updateUserProfile = async (req, res) => {
+    const { bio, socialLinks, profilePicture } = req.body;
+    try {
+        const user = await User.findById(req.userId);
+        if (!user) {
+            return res.status(404).json({ msg: 'User not found' });
+        }
+        user.bio = bio || user.bio;
+        user.socialLinks = socialLinks || user.socialLinks;
+        user.profilePicture = profilePicture || user.profilePicture;
+
+        await user.save();
+
+        return res
+            .status(200)
+            .json({ msg: 'Profile updated successfully.', user });
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).json({ msg: 'Server error' });
+    }
+};
