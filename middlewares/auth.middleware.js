@@ -21,7 +21,7 @@ const auth = (req, res, next) => {
     } catch (error) {
         // Log any errors and return an invalid token response
         console.error(error.message);
-        res.status(500).json({ msg: 'Auth: Token is invalid' });
+        res.status(500).json({ msg: 'Auth: error', error: error.message });
     }
 };
 

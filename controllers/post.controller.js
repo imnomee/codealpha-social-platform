@@ -18,7 +18,7 @@ export const createPost = async (req, res) => {
             .json({ msg: 'Post created successfully', newPost });
     } catch (error) {
         console.error(error.message);
-        return res.status(400).json('creatPost: error');
+        return res.status(400).json();
     }
 };
 
@@ -37,7 +37,9 @@ export const getPosts = async (req, res) => {
         return res.status(200).json({ postsCount, formattedPosts });
     } catch (error) {
         console.error(error.message);
-        return res.status(400).json('getPostsByUser: error');
+        return res
+            .status(400)
+            .json({ msg: 'getPostsByUser: error', error: error.message });
     }
 };
 
@@ -63,7 +65,9 @@ export const likePost = async (req, res) => {
         });
     } catch (error) {
         console.error(error.message);
-        return res.status(400).json('likePost: error');
+        return res
+            .status(400)
+            .json({ msg: 'likePost: error', error: error.message });
     }
 };
 
@@ -84,7 +88,9 @@ export const commentOnPost = async (req, res) => {
         return res.status(200).json({ post });
     } catch (error) {
         console.error(error.message);
-        return res.status(400).json('commentOnPost:error');
+        return res
+            .status(400)
+            .json({ msg: 'commentOnPost: error', error: error.message });
     }
 };
 
@@ -105,6 +111,8 @@ export const getFeedPosts = async (req, res) => {
         return res.status(200).json(posts);
     } catch (error) {
         console.error(error.message);
-        return res.status(400).json('commentOnPost:error');
+        return res
+            .status(400)
+            .json({ msg: 'getFeedPosts: error', error: error.message });
     }
 };
