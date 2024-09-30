@@ -1,6 +1,7 @@
 import { User } from '../models/user.model.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import { Follow } from '../models/follow.model.js';
 
 // User Registration Controller
 export const userRegister = async (req, res) => {
@@ -107,6 +108,36 @@ export const updateUserProfile = async (req, res) => {
         return res
             .status(200)
             .json({ msg: 'Profile updated successfully.', user });
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).json({ msg: 'Server error' });
+    }
+};
+
+export const followUser = async (req, res) => {
+    const { userId } = req.params; //user to get followed
+    const followerId = req.userId; //user whoe is going to follow
+    try {
+        const follow = new Follow({ follower: followerId, following: userId });
+        await follow.save();
+
+        return res.status(200).json({ msg: 'Successfully followed the user' });
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).json({ msg: 'Server error' });
+    }
+};
+export const unFollowUser = async (req, res) => {
+    const { userId } = req.params; //user to get followed
+    const followerId = req.userId; //user whoe is going to follow
+    try {
+        await Follow.findOneAndDelete({
+            follower: followerId,
+            following: userId,
+        });
+        return res
+            .status(200)
+            .json({ msg: 'Successfully unfollowed the user' });
     } catch (error) {
         console.error(error.message);
         res.status(500).json({ msg: 'Server error' });
