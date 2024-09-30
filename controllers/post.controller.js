@@ -1,3 +1,4 @@
+import { Follow } from '../models/follow.model.js';
 import { Post } from '../models/post.model.js';
 import { User } from '../models/user.model.js';
 
@@ -9,17 +10,12 @@ export const createPost = async (req, res) => {
         const newPost = await Post({ userId, content });
         await newPost.save();
 
-        const user = await User.findById(req.userId);
-        if (!user) {
-            return res.status(404).json({ msg: 'User not found' });
-        }
+        // Add post ID to user's posts array without refetching the user
+        await User.findByIdAndUpdate(userId, { $push: { posts: newPost._id } });
 
-        //add post id to users
-        user.posts.push(newPost._id);
-        await user.save();
         return res
             .status(201)
-            .json({ msg: 'creatPost: created successfully', newPost });
+            .json({ msg: 'Post created successfully', newPost });
     } catch (error) {
         console.error(error.message);
         return res.status(400).json('creatPost: error');
@@ -86,6 +82,27 @@ export const commentOnPost = async (req, res) => {
         post.comments.push({ userId, comment });
         await post.save();
         return res.status(200).json({ post });
+    } catch (error) {
+        console.error(error.message);
+        return res.status(400).json('commentOnPost:error');
+    }
+};
+
+export const getFeedPosts = async (req, res) => {
+    try {
+        const followerData = await Follow.find({
+            follower: req.userId,
+        }).populate('following', '_id');
+        const followingIds = followerData.map((follow) => follow.following._id);
+        const posts = await Post.find({
+            userId: { $in: followingIds },
+        })
+            .populate('userId', 'username')
+            .select('-updatedAt -__v');
+
+        console.log(posts);
+
+        return res.status(200).json(posts);
     } catch (error) {
         console.error(error.message);
         return res.status(400).json('commentOnPost:error');
