@@ -29,10 +29,7 @@ export const userRegister = async (req, res) => {
     } catch (error) {
         // Log any errors and return a server error response
         console.error(error.message);
-        res.status(500).json({
-            msg: 'userRegister: error',
-            error: error.message,
-        });
+        res.status(500).json({ msg: 'Server error' });
     }
 };
 
@@ -69,7 +66,7 @@ export const userLogin = async (req, res) => {
     } catch (error) {
         // Log any errors and return a server error response
         console.error(error.message);
-        res.status(500).json({ msg: 'userLogin: error', error: error.message });
+        res.status(500).json({ msg: 'Server error' });
     }
 };
 
@@ -86,10 +83,7 @@ export const getUserProfile = async (req, res) => {
         return res.status(200).json(user);
     } catch (error) {
         console.error(error.message);
-        res.status(500).json({
-            msg: 'getUserProfile: error',
-            error: error.message,
-        });
+        res.status(500).json({ msg: 'Server error' });
     }
 };
 
@@ -116,10 +110,7 @@ export const updateUserProfile = async (req, res) => {
             .json({ msg: 'Profile updated successfully.', user });
     } catch (error) {
         console.error(error.message);
-        res.status(500).json({
-            msg: 'updateUserProfile: error',
-            error: error.message,
-        });
+        res.status(500).json({ msg: 'Server error' });
     }
 };
 
@@ -133,10 +124,7 @@ export const followUser = async (req, res) => {
         return res.status(200).json({ msg: 'Successfully followed the user' });
     } catch (error) {
         console.error(error.message);
-        res.status(500).json({
-            msg: 'followUser: error',
-            error: error.message,
-        });
+        res.status(500).json({ msg: 'Server error' });
     }
 };
 export const unFollowUser = async (req, res) => {
@@ -152,9 +140,6 @@ export const unFollowUser = async (req, res) => {
             .json({ msg: 'Successfully unfollowed the user' });
     } catch (error) {
         console.error(error.message);
-        res.status(500).json({
-            msg: 'unfollowUser: error',
-            error: error.message,
-        });
+        res.status(500).json({ msg: 'Server error' });
     }
 };
