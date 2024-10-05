@@ -14,7 +14,10 @@ router.get('/', (req, res) => {
 });
 
 router.get('/posts', viewAllPosts);
-router.get('/posts/:id', viewSinglePost);
+router.get('/posts/:id', auth, viewSinglePost);
 router.get('/user/login', viewUserLogin);
 router.get('/user/register', viewUserRegister);
+router.get('/feed', auth, (req, res) => {
+    return res.render('feed');
+});
 export default router;

@@ -50,6 +50,4 @@ const commentButton = document
         const base = e.target.baseURI.split('/');
         const postId = base[base.length - 1];
         commentOnPost(comment, postId);
-
-        //   likePost(base);
     });
