@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  h1 Register
+  h1= title
   form(action="/api/v1/users/register" method="POST")
     label(for="username") Username:
     input(type="text" name="username" required)
@@ -16,4 +16,4 @@ block content
 
   p
     | Already have an account? 
-    a(href="/api/v1/user/login") Login here
+    a(href="/user/login") Login here

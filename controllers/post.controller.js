@@ -100,8 +100,6 @@ export const getFeedPosts = async (req, res) => {
             .populate('userId', 'username')
             .select('-updatedAt -__v');
 
-        console.log(posts);
-
         return res.status(200).json(posts);
     } catch (error) {
         console.error(error.message);

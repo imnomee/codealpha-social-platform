@@ -9,6 +9,7 @@ import {
 } from '../controllers/post.controller.js';
 const router = express.Router();
 
+//http://localhost:7860/posts/:postId/like
 router.post('/createPost', auth, createPost);
 router.post('/:postId/like', auth, likePost);
 router.post('/:postId/comment', auth, commentOnPost);

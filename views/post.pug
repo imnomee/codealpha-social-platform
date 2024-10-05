@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  h1 Welcome to #{title}
+  h2= post.userId.username
+  p= post._id
+  p= post.content 
+  p Likes: #{post.likes.length}
+  p Comments: #{post.comments.length}
+  ul
+    each comment in post.comments
+      li
+        p= comment.comment
+          span= comment.createdAt
+  a#like(href='') Like<3
+  br
+  label(for='comment') Comment: 
+    textarea#comment
+    button#commentBtn Post
+   
+  br
+
+  a(href='/posts') back to Posts
+  script(src='/js/post.js')
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js")

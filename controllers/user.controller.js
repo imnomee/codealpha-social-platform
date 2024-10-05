@@ -52,17 +52,16 @@ export const userLogin = async (req, res) => {
         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
             expiresIn: '1h', // Token expires in 1 hour
         });
-
         // Set the token in a cookie and respond with a success message
+
+        res.cookie('token', token, {
+            maxAge: 1 * 24 * 60 * 60 * 1000, // Cookie valid for 1 day
+            httpOnly: true, // Prevents client-side JavaScript from accessing the cookie
+            sameSite: 'strict', // Mitigates CSRF attacks
+        });
         return res
             .status(200)
-            .cookie('token', token, {
-                maxAge: 1 * 24 * 60 * 60 * 1000, // Cookie valid for 1 day
-                httpOnly: true, // Prevents client-side JavaScript from accessing the cookie
-                sameSite: 'strict', // Mitigates CSRF attacks
-                secure: process.env.NODE_ENV === 'production', // Use secure cookies in production environments
-            })
-            .json({ msg: 'Login successful, token in cookies' });
+            .json({ msg: 'Login successful, token set in cookies' });
     } catch (error) {
         // Log any errors and return a server error response
         console.error(error.message);
