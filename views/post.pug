@@ -5,18 +5,19 @@ block content
   h2= post.userId.username
   p= post._id
   p= post.content 
+  p
+    a#like(href='') Like
   p Likes: #{post.likes.length}
+  label(for='comment') Comment: 
+    textarea#comment
+    button#commentBtn Post
   p Comments: #{post.comments.length}
   ul
     each comment in post.comments
       li
         p= comment.comment
           span= comment.createdAt
-  a#like(href='') Like<3
   br
-  label(for='comment') Comment: 
-    textarea#comment
-    button#commentBtn Post
    
   br
 

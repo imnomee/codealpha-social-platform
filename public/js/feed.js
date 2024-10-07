@@ -12,9 +12,9 @@ document.addEventListener('DOMContentLoaded', async function () {
                 const postItem = document.createElement('li');
                 postItem.innerHTML = `
                         <div>
-                              <strong>${post.userId.username}</strong>: ${post.content} <br>
-                              Likes: ${post.likes.length}<br>
-                              Comments: ${post.comments.length}
+                              <strong class='username'>${post.userId.username}:</strong>${post.content}
+                              <div class='likes'>Likes: ${post.likes.length}</div>
+                              <div class='comments'>Comments: ${post.comments.length}</div>
 
 
                         </div>
