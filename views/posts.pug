@@ -3,6 +3,7 @@ extends layout
 block content
   h1 Welcome to #{title}
   p This is the #{title}
+
   each post in posts
     h2= post.userId.username
     h3

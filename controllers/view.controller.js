@@ -1,4 +1,5 @@
 import { Post } from '../models/post.model.js';
+import { User } from '../models/user.model.js';
 
 export const viewAllPosts = async (req, res) => {
     //get all posts from collection
@@ -7,6 +8,11 @@ export const viewAllPosts = async (req, res) => {
 
     //render template using the data from collection
     return res.status(200).render('posts', { title: 'Posts', posts });
+};
+
+export const viewUsers = async (req, res) => {
+    const users = await User.find().select('username');
+    return res.status(200).render('users', { title: 'Users', users });
 };
 
 export const viewSinglePost = async (req, res) => {
@@ -28,4 +34,15 @@ export const viewUserLogin = (req, res) => {
 
 export const viewUserRegister = (req, res) => {
     return res.status(200).render('register', { title: 'Register' });
+};
+
+export const getCurrentUser = async (req, res) => {
+    const userId = req.userId || '';
+    const user = await User.findById(userId).select(
+        '-_id email username createdAt bio'
+    );
+    if (!userId || !user) {
+        return res.status(200).render('home', { title: 'Home: No User' });
+    }
+    return res.status(200).render('home', { title: 'Home', user });
 };
