@@ -8,7 +8,7 @@ import cookieParser from 'cookie-parser';
 import userRoutes from './routes/user.routes.js';
 import postRoutes from './routes/post.routes.js';
 import viewRoutes from './routes/view.routes.js';
-import cors from 'cors';
+// import cors from 'cors';
 
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -21,12 +21,12 @@ app.use(express.urlencoded({ extended: true }));
 // Middleware
 app.use(bodyParser.json()); // Parse JSON bodies
 app.use(cookieParser()); // Parse cookies
-app.use(
-    cors({
-        origin: 'http://localhost:7860',
-        credentials: true,
-    })
-);
+// app.use(
+//     cors({
+//         origin: 'http://localhost:7860',
+//         credentials: true,
+//     })
+// );
 
 // Define __dirname for ES modules
 const __filename = fileURLToPath(import.meta.url);
