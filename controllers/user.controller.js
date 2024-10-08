@@ -11,7 +11,18 @@ export const userRegister = async (req, res) => {
     try {
         // Check if user already exists in the database by email
         let user = await User.findOne({ email });
-        if (user) return res.status(400).json({ msg: 'User Already exists.' });
+        if (user)
+            return res.status(400).render('register', {
+                title: 'Register',
+                msg: 'User Already exists.',
+            });
+
+        user = await User.findOne({ username });
+        if (user)
+            return res.status(400).render('register', {
+                title: 'Register',
+                msg: 'User Already exists.',
+            });
 
         // Generate a salt and hash the password for security
         const salt = await bcrypt.genSalt(10);

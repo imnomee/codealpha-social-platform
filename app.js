@@ -15,6 +15,8 @@ import { fileURLToPath } from 'url';
 
 // Initialize Express app
 const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Middleware
 app.use(bodyParser.json()); // Parse JSON bodies
