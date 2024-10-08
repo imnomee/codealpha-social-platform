@@ -37,12 +37,12 @@ export const viewUserRegister = (req, res) => {
 };
 
 export const getCurrentUser = async (req, res) => {
-    const userId = req.userId || '';
-    const user = await User.findById(userId).select(
-        '-_id email username createdAt bio'
-    );
-    if (!userId || !user) {
-        return res.status(200).render('home', { title: 'Home: No User' });
-    }
-    return res.status(200).render('home', { title: 'Home', user });
+    // const userId = req.userId || '';
+    // const user = await User.findById(userId).select(
+    //     '-_id email username createdAt bio'
+    // );
+    // if (!userId || !user) {
+    //     return res.status(200).render('home', { title: 'Home: No User' });
+    // }
+    return res.status(200).render('home', { title: 'Home' });
 };

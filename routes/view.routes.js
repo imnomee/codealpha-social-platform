@@ -11,7 +11,7 @@ import auth from '../middlewares/auth.middleware.js';
 
 const router = express.Router();
 
-router.get('/', getCurrentUser);
+router.get('/', viewAllPosts);
 
 router.get('/posts', viewAllPosts);
 router.get('/posts/:id', auth, viewSinglePost);
